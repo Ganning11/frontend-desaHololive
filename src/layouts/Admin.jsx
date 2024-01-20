@@ -26,7 +26,9 @@ export default function admin({ children }) {
           <footer className="py-4 bg-light mt-auto">
             <div className="container-fluid px-4">
               <div className="d-flex align-items-center justify-content-end small">
-                <div className="text-muted">Copyright &copy; Desa Digital.</div>
+                <div className="text-muted">
+                  Copyright &copy; Desa Hololive.
+                </div>
               </div>
             </div>
           </footer>
