@@ -32,6 +32,12 @@ import RolesEdit from "../views/Admin/Roles/Edit";
 //import view users index
 import UsersIndex from "../views/Admin/Users/Index";
 
+//import view users create
+import UsersCreate from "../views/Admin/Users/Create";
+
+//import view users edit
+import UsersEdit from "../views/Admin/Users/Edit";
+
 export default function RoutesIndex() {
   return (
     <Routes>
@@ -97,6 +103,26 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <UsersIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/users/create" */}
+      <Route
+        path="/admin/users/create"
+        element={
+          <PrivateRoutes>
+            <UsersCreate />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/users/edit" */}
+      <Route
+        path="/admin/users/edit/:id"
+        element={
+          <PrivateRoutes>
+            <UsersEdit />
           </PrivateRoutes>
         }
       />
