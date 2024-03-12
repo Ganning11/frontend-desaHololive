@@ -68,6 +68,27 @@ import PagesEdit from "../views/Admin/Pages/Edit";
 //import view products index
 import ProductsIndex from "../views/Admin/Products/Index";
 
+//import view products create
+import ProductsCreate from "../views/Admin/Products/Create";
+
+//import view products edit
+import ProductsEdit from "../views/Admin/Products/Edit";
+
+//import view photos index
+import PhotosIndex from "../views/Admin/Photos/Index";
+
+//import view sliders index
+import SlidersIndex from "../views/Admin/Sliders/Index";
+
+//import view aparaturs index
+import AparatursIndex from "../views/Admin/Aparaturs/Index";
+
+//import view aparaturs create
+import AparatursCreate from "../views/Admin/Aparaturs/Create";
+
+//import view aparaturs edit
+import AparatursEdit from "../views/Admin/Aparaturs/Edit";
+
 export default function RoutesIndex() {
   return (
     <Routes>
@@ -253,6 +274,76 @@ export default function RoutesIndex() {
         element={
           <PrivateRoutes>
             <ProductsIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/products/create" */}
+      <Route
+        path="/admin/products/create"
+        element={
+          <PrivateRoutes>
+            <ProductsCreate />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/products/edit" */}
+      <Route
+        path="/admin/products/edit/:id"
+        element={
+          <PrivateRoutes>
+            <ProductsEdit />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/photos" */}
+      <Route
+        path="/admin/photos"
+        element={
+          <PrivateRoutes>
+            <PhotosIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/sliders" */}
+      <Route
+        path="/admin/sliders"
+        element={
+          <PrivateRoutes>
+            <SlidersIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/aparaturs" */}
+      <Route
+        path="/admin/aparaturs"
+        element={
+          <PrivateRoutes>
+            <AparatursIndex />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/aparaturs/create" */}
+      <Route
+        path="/admin/aparaturs/create"
+        element={
+          <PrivateRoutes>
+            <AparatursCreate />
+          </PrivateRoutes>
+        }
+      />
+
+      {/* private route "/admin/aparaturs/edit" */}
+      <Route
+        path="/admin/aparaturs/edit/:id"
+        element={
+          <PrivateRoutes>
+            <AparatursEdit />
           </PrivateRoutes>
         }
       />

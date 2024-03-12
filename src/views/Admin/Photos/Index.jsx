@@ -1,9 +1,6 @@
 //import useState and useEffect
 import { useState, useEffect } from "react";
 
-//import Link from react router dom
-import { Link } from "react-router-dom";
-
 //import api
 import Api from "../../../services/Api";
 
@@ -19,6 +16,9 @@ import hasAnyPermission from "../../../utils/Permissions";
 //import pagination component
 import Pagination from "../../../components/general/Pagination";
 
+//import component photo create
+import PhotoCreate from "./Create";
+
 //import react-confirm-alert
 import { confirmAlert } from "react-confirm-alert";
 
@@ -28,12 +28,12 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 //import toast
 import toast from "react-hot-toast";
 
-export default function ProductsIndex() {
+export default function PhotosIndex() {
   //title page
-  document.title = "Products - Desa Digital";
+  document.title = "Photos - Desa Digital";
 
-  //define state "products"
-  const [products, setProducts] = useState([]);
+  //define state "photos"
+  const [photos, setPhotos] = useState([]);
 
   //define state "pagination"
   const [pagination, setPagination] = useState({
@@ -53,15 +53,15 @@ export default function ProductsIndex() {
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
 
-    await Api.get(`/api/admin/products?search=${keywords}&page=${page}`, {
+    await Api.get(`/api/admin/photos?search=${keywords}&page=${page}`, {
       //header
       headers: {
         //header Bearer + Token
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
-      //set data response to state "setProducts"
-      setProducts(response.data.data.data);
+      //set data response to state "setPosts"
+      setPhotos(response.data.data.data);
 
       //set data pagination to state "pagination"
       setPagination(() => ({
@@ -87,8 +87,8 @@ export default function ProductsIndex() {
     fetchData(1, e.target.value);
   };
 
-  //function "deleteProduct"
-  const deleteProduct = (id) => {
+  //function "deletePhoto"
+  const deletePhoto = (id) => {
     //show confirm alert
     confirmAlert({
       title: "Are You Sure ?",
@@ -97,7 +97,7 @@ export default function ProductsIndex() {
         {
           label: "YES",
           onClick: async () => {
-            await Api.delete(`/api/admin/products/${id}`, {
+            await Api.delete(`/api/admin/photos/${id}`, {
               //header
               headers: {
                 //header Bearer + Token
@@ -128,19 +128,15 @@ export default function ProductsIndex() {
       <main>
         <div className="container-fluid mb-5 mt-5">
           <div className="row">
+            <div className="col-md-12">
+              {hasAnyPermission(["sliders.create"]) && (
+                <PhotoCreate fetchData={fetchData} />
+              )}
+            </div>
+          </div>
+          <div className="row mt-4">
             <div className="col-md-8">
               <div className="row">
-                {hasAnyPermission(["products.create"]) && (
-                  <div className="col-md-3 col-12 mb-2">
-                    <Link
-                      to="/admin/products/create"
-                      className="btn btn-md btn-primary border-0 shadow-sm w-100"
-                      type="button"
-                    >
-                      <i className="fa fa-plus-circle"></i> Add New
-                    </Link>
-                  </div>
-                )}
                 <div className="col-md-9 col-12 mb-2">
                   <div className="input-group">
                     <input
@@ -168,10 +164,8 @@ export default function ProductsIndex() {
                           <th className="border-0" style={{ width: "5%" }}>
                             No.
                           </th>
-                          <th className="border-0">Title</th>
-                          <th className="border-0">Owner</th>
-                          <th className="border-0">Phone</th>
-                          <th className="border-0">Price</th>
+                          <th className="border-0">Image</th>
+                          <th className="border-0">Caption</th>
                           <th className="border-0" style={{ width: "15%" }}>
                             Actions
                           </th>
@@ -180,32 +174,27 @@ export default function ProductsIndex() {
                       <tbody>
                         {
                           //cek apakah data ada
-                          products.length > 0 ? (
-                            //looping data "products" dengan "map"
-                            products.map((product, index) => (
+                          photos.length > 0 ? (
+                            //looping data "photos" dengan "map"
+                            photos.map((photo, index) => (
                               <tr key={index}>
                                 <td className="fw-bold text-center">
                                   {++index +
                                     (pagination.currentPage - 1) *
                                       pagination.perPage}
                                 </td>
-                                <td>{product.title}</td>
-                                <td>{product.owner}</td>
-                                <td>{product.phone}</td>
-                                <td>{product.price}</td>
                                 <td className="text-center">
-                                  {hasAnyPermission(["products.edit"]) && (
-                                    <Link
-                                      to={`/admin/products/edit/${product.id}`}
-                                      className="btn btn-primary btn-sm me-2"
-                                    >
-                                      <i className="fa fa-pencil-alt"></i>
-                                    </Link>
-                                  )}
-
-                                  {hasAnyPermission(["products.delete"]) && (
+                                  <img
+                                    src={photo.image}
+                                    width={"300px"}
+                                    className="rounded"
+                                  />
+                                </td>
+                                <td>{photo.caption}</td>
+                                <td className="text-center">
+                                  {hasAnyPermission(["posts.delete"]) && (
                                     <button
-                                      onClick={() => deleteProduct(product.id)}
+                                      onClick={() => deletePhoto(photo.id)}
                                       className="btn btn-danger btn-sm"
                                     >
                                       <i className="fa fa-trash"></i>
