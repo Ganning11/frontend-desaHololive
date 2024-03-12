@@ -13,6 +13,8 @@ import Cookies from "js-cookie";
 //import layout
 import LayoutAdmin from "../../../layouts/Admin";
 
+import Loading from "../../../components/general/Loading";
+
 //import permissions
 import hasAnyPermission from "../../../utils/Permissions";
 
@@ -44,6 +46,7 @@ export default function PostsIndex() {
 
   //define state "keywords"
   const [keywords, setKeywords] = useState("");
+  const [loadingData, setLoadingData] = useState(true);
 
   //token from cookies
   const token = Cookies.get("token");
@@ -52,6 +55,7 @@ export default function PostsIndex() {
   const fetchData = async (pageNumber = 1, keywords = "") => {
     //define variable "page"
     const page = pageNumber ? pageNumber : pagination.currentPage;
+    setLoadingData(true);
 
     await Api.get(`/api/admin/posts?search=${keywords}&page=${page}`, {
       //header
@@ -69,6 +73,8 @@ export default function PostsIndex() {
         perPage: response.data.data.per_page,
         total: response.data.data.total,
       }));
+
+      setLoadingData(false);
     });
   };
 
@@ -181,7 +187,58 @@ export default function PostsIndex() {
                         </tr>
                       </thead>
                       <tbody>
-                        {
+                        {loadingData ? (
+                          <tr>
+                            <td colSpan={5}>
+                              <Loading />
+                            </td>
+                          </tr>
+                        ) : // <Loading />
+                        posts.length > 0 ? (
+                          posts.map((post, index) => (
+                            <tr key={index}>
+                              <td className="fw-bold text-center">
+                                {++index +
+                                  (pagination.currentPage - 1) *
+                                    pagination.perPage}
+                              </td>
+                              <td>{post.title}</td>
+                              <td>{post.category.name}</td>
+                              <td>{post.user.name}</td>
+                              <td className="text-center">
+                                {hasAnyPermission(["posts.edit"]) && (
+                                  <Link
+                                    to={`/admin/posts/edit/${post.id}`}
+                                    className="btn btn-primary btn-sm me-2"
+                                  >
+                                    <i className="fa fa-pencil-alt"></i>
+                                  </Link>
+                                )}
+
+                                {hasAnyPermission(["posts.delete"]) && (
+                                  <button
+                                    onClick={() => deletePost(post.id)}
+                                    className="btn btn-danger btn-sm"
+                                  >
+                                    <i className="fa fa-trash"></i>
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan={5}>
+                              <div
+                                className="alert alert-danger border-0 rounded shadow-sm w-100 text-center"
+                                role="alert"
+                              >
+                                Data Belum Tersedia!.
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                        {/* {
                           //cek apakah data ada
                           posts.length > 0 ? (
                             //looping data "categories" dengan "map"
@@ -229,7 +286,7 @@ export default function PostsIndex() {
                               </td>
                             </tr>
                           )
-                        }
+                        } */}
                       </tbody>
                     </table>
                   </div>
