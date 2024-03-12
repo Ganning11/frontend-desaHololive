@@ -96,6 +96,30 @@ import AparatursEdit from "../views/Admin/Aparaturs/Edit";
 //import view home
 import Home from "../views/Web/Home/Index";
 
+//import view aparaturs index
+import WebAparatursIndex from "../views/Web/Aparaturs/Index";
+
+//import view pages index
+import WebPagesIndex from "../views/Web/Pages/Index";
+
+//import view page show
+import WebPagesShow from "../views/Web/Pages/Show";
+
+//import view photos index
+import WebPhotosIndex from "../views/Web/Photos/Index";
+
+//import view posts index
+import WebPostsIndex from "../views/Web/Posts/Index";
+
+//import view post show
+import WebPostsShow from "../views/Web/Posts/Show";
+
+//import view products index
+import WebProductsIndex from "../views/Web/Products/Index";
+
+//import view products show
+import WebProductsShow from "../views/Web/Products/Show";
+
 export default function RoutesIndex() {
   return (
     <Routes>
@@ -357,6 +381,30 @@ export default function RoutesIndex() {
 
       {/* route "/" */}
       <Route path="/" element={<Home />} />
+
+      {/* route "/aparaturs" */}
+      <Route path="/aparaturs" element={<WebAparatursIndex />} />
+
+      {/* route "/pages" */}
+      <Route path="/pages" element={<WebPagesIndex />} />
+
+      {/* route "/pages/:slug" */}
+      <Route path="/pages/:slug" element={<WebPagesShow />} />
+
+      {/* route "/photos" */}
+      <Route path="/photos" element={<WebPhotosIndex />} />
+
+      {/* route "/posts" */}
+      <Route path="/posts" element={<WebPostsIndex />} />
+
+      {/* route "/posts/:slug" */}
+      <Route path="/posts/:slug" element={<WebPostsShow />} />
+
+      {/* route "/products" */}
+      <Route path="/products" element={<WebProductsIndex />} />
+
+      {/* route "/products/:slug" */}
+      <Route path="/products/:slug" element={<WebProductsShow />} />
     </Routes>
   );
 }
