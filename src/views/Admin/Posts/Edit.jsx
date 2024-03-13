@@ -13,6 +13,8 @@ import Api from "../../../services/Api";
 //import js cookie
 import Cookies from "js-cookie";
 
+import Loading from "../../../components/general/Loading";
+
 //import toast
 import toast from "react-hot-toast";
 
@@ -38,6 +40,7 @@ export default function PostsEdit() {
   const [categoryID, setCategoryID] = useState("");
   const [content, setContent] = useState("");
   const [errors, setErros] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
 
   const [categories, setCategories] = useState([]);
 
@@ -71,11 +74,14 @@ export default function PostsEdit() {
       setTitle(response.data.data.title);
       setCategoryID(response.data.data.category_id);
       setContent(response.data.data.content);
+      setLoadingData(false);
     });
   };
 
   //useEffect
   useEffect(() => {
+    setLoadingData(true);
+
     //call function "fetchDataCategories"
     fetchDataCategories();
 
@@ -136,91 +142,95 @@ export default function PostsEdit() {
                 <i className="fa fa-long-arrow-alt-left me-2"></i> Back
               </Link>
               <div className="card border-0 rounded shadow-sm border-top-success">
-                <div className="card-body">
-                  <h6>
-                    <i className="fa fa-pencil-alt"></i> Edit Post
-                  </h6>
-                  <hr />
-                  <form onSubmit={updatePost}>
-                    <div className="mb-3">
-                      <label className="form-label fw-bold">Image</label>
-                      <input
-                        type="file"
-                        className="form-control"
-                        accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0])}
-                      />
-                    </div>
-                    {errors.image && (
-                      <div className="alert alert-danger">
-                        {errors.image[0]}
+                {loadingData ? (
+                  <Loading />
+                ) : (
+                  <div className="card-body">
+                    <h6>
+                      <i className="fa fa-pencil-alt"></i> Edit Post
+                    </h6>
+                    <hr />
+                    <form onSubmit={updatePost}>
+                      <div className="mb-3">
+                        <label className="form-label fw-bold">Image</label>
+                        <input
+                          type="file"
+                          className="form-control"
+                          accept="image/*"
+                          onChange={(e) => setImage(e.target.files[0])}
+                        />
                       </div>
-                    )}
-                    <div className="mb-3">
-                      <label className="form-label fw-bold">Title</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Enter Title Post"
-                      />
-                    </div>
-                    {errors.title && (
-                      <div className="alert alert-danger">
-                        {errors.title[0]}
+                      {errors.image && (
+                        <div className="alert alert-danger">
+                          {errors.image[0]}
+                        </div>
+                      )}
+                      <div className="mb-3">
+                        <label className="form-label fw-bold">Title</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                          placeholder="Enter Title Post"
+                        />
                       </div>
-                    )}
+                      {errors.title && (
+                        <div className="alert alert-danger">
+                          {errors.title[0]}
+                        </div>
+                      )}
 
-                    <div className="mb-3">
-                      <label className="form-label fw-bold">Category</label>
-                      <select
-                        className="form-select"
-                        value={categoryID}
-                        onChange={(e) => setCategoryID(e.target.value)}
-                      >
-                        <option value="">-- Select Category --</option>
-                        {categories.map((category) => (
-                          <option value={category.id} key={category.id}>
-                            {category.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    {errors.category_id && (
-                      <div className="alert alert-danger">
-                        {errors.category_id[0]}
+                      <div className="mb-3">
+                        <label className="form-label fw-bold">Category</label>
+                        <select
+                          className="form-select"
+                          value={categoryID}
+                          onChange={(e) => setCategoryID(e.target.value)}
+                        >
+                          <option value="">-- Select Category --</option>
+                          {categories.map((category) => (
+                            <option value={category.id} key={category.id}>
+                              {category.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
-                    )}
+                      {errors.category_id && (
+                        <div className="alert alert-danger">
+                          {errors.category_id[0]}
+                        </div>
+                      )}
 
-                    <div className="mb-3">
-                      <label className="form-label fw-bold">Content</label>
-                      <ReactQuill
-                        theme="snow"
-                        rows="5"
-                        value={content}
-                        onChange={(content) => setContent(content)}
-                      />
-                    </div>
-                    {errors.content && (
-                      <div className="alert alert-danger">
-                        {errors.content[0]}
+                      <div className="mb-3">
+                        <label className="form-label fw-bold">Content</label>
+                        <ReactQuill
+                          theme="snow"
+                          rows="5"
+                          value={content}
+                          onChange={(content) => setContent(content)}
+                        />
                       </div>
-                    )}
+                      {errors.content && (
+                        <div className="alert alert-danger">
+                          {errors.content[0]}
+                        </div>
+                      )}
 
-                    <div>
-                      <button
-                        type="submit"
-                        className="btn btn-md btn-primary me-2"
-                      >
-                        <i className="fa fa-save"></i> Update
-                      </button>
-                      <button type="reset" className="btn btn-md btn-warning">
-                        <i className="fa fa-redo"></i> Reset
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                      <div>
+                        <button
+                          type="submit"
+                          className="btn btn-md btn-primary me-2"
+                        >
+                          <i className="fa fa-save"></i> Update
+                        </button>
+                        <button type="reset" className="btn btn-md btn-warning">
+                          <i className="fa fa-redo"></i> Reset
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 .jumbotron-header {
-    background-color: #2e7d32;
+    background-color: #457B9D;
 }
 
 .header-logo {
@@ -18,13 +18,13 @@
 }
 
 .navbar-top {
-    background-color: #005005;
+    background-color: #1D3557;
     color: white;
 }
 
 .navbar-blue {
-    background-color: #005005;
-    border-bottom: 5px solid #f3ca35;
+    background-color: #1D3557;
+    border-bottom: 5px solid #A8DADC;
 }
 
 .nav-link {
@@ -33,9 +33,9 @@
 }
 
 .nav-web .nav-link:hover {
-    background: #f3ca35;
+    background: #A8DADC;
     border-radius: .3rem;
-    color: #005006 !important;
+    color: #1D3557 !important;
 }
 
 .navbar-nav .nav-link {
@@ -45,24 +45,24 @@
 }
 
 .nav-web .active {
-    background: #f3ca35;
+    background: #A8DADC;
     border-radius: .3rem;
-    color: #005006 !important;
+    color: #1D3557 !important;
 }
 
 .btn-primary {
-    background-color: #2e7d32;
-    border-color: #2e7d32;
+    background-color: #457B9D;
+    border-color: #457B9D;
 }
 
 .btn-primary:hover {
-    background-color: #2e7d32;
-    border-color: #2e7d32;
+    background-color: #457B9D;
+    border-color: #457B9D;
 }
 
 .btn-primary-dark {
-    background-color: #005005;
-    border-color: #005005;
+    background-color: #1D3557;
+    border-color: #1D3557;
     color: white;
 }
 
@@ -89,13 +89,13 @@
 }
 
 .footer-top {
-    background-color: #2e7d32;
+    background-color: #457B9D;
     color: white;
-    border-top: 5px solid #f3ca35;
+    border-top: 5px solid #A8DADC;
 }
 
 .footer-bottom {
-    background-color: #005005;
+    background-color: #1D3557;
 }
 
 .navbar-light .navbar-toggler {
@@ -112,7 +112,7 @@
 } */
 
 .text-green {
-    color: #2e7d32!important;
+    color: #457B9D!important;
 }
 
 .carousel-custom{z-index:9;background:#fff;border:none;border-radius:50%;padding:10px;width:22px}
