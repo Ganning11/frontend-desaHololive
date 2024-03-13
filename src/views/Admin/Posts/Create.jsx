@@ -22,6 +22,8 @@ import ReactQuill from "react-quill";
 // quill CSS
 import "react-quill/dist/quill.snow.css";
 
+import Swal from "sweetalert2";
+
 export default function PostsCreate() {
   //title page
   document.title = "Create Post - Desa Digital";
@@ -88,6 +90,12 @@ export default function PostsCreate() {
         toast.success(response.data.message, {
           position: "top-right",
           duration: 4000,
+        });
+
+        Swal.fire({
+          title: "Good job!",
+          text: "You clicked the button!",
+          icon: "success",
         });
 
         //redirect
